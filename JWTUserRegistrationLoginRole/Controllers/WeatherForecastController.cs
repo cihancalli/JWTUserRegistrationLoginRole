@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 namespace JWTUserRegistrationLoginRole.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -23,7 +25,7 @@ namespace JWTUserRegistrationLoginRole.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("GetWeatherForecast"), Authorize(Roles = "Admin")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
